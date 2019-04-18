@@ -21,7 +21,7 @@ function DownloadMesaOpenGL ($architecture) {
     if (Test-Path $filepath) {
         Write-Host "OpenGL already installed"
         Clear-History
-        Icacls "$filepath" /grant "$env:UserName":F
+        Icacls "$filepath" /grant appveyor:F
         Remove-Item $filepath -Force
         Get-History
     }
