@@ -20,7 +20,7 @@ function DownloadMesaOpenGL ($architecture) {
 
     if (Test-Path $filepath) {
         Write-Host "OpenGL already installed"
-        cacls $filepath /C /G "$env:UserName":F
+        cacls "$filepath" /C /G "$env:UserName":F
         Remove-Item $filepath -Force
     }
     If(!(test-path "./temp"))
