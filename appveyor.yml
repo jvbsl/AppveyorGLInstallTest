@@ -1,0 +1,9 @@
+image: Visual Studio 2017
+init:
+  - git config --global core.autocrlf input
+install:
+  # Install OpenGL
+  - "powershell ./install-opengl.ps1"
+
+build:
+  - "powershell ./test-dll.ps1"
