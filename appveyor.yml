@@ -3,7 +3,7 @@ init:
   - git config --global core.autocrlf input
 install:
   # Install OpenGL
-  - "powershell ./install-opengl.ps1"
+  - ps: install-opengl.ps1
 
 build_script:
-  - "powershell ./test-dll.ps1"
+  - ps: test-dll.ps1
