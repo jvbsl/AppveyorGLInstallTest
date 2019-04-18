@@ -5,5 +5,5 @@ install:
   # Install OpenGL
   - "powershell ./install-opengl.ps1"
 
-build:
+build_script:
   - "powershell ./test-dll.ps1"
