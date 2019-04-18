@@ -1,1 +1,1 @@
-Get-ChildItem -Filter C:\Windows\system32\opengl32.dll -Recurse | Select-Object -ExpandProperty VersionInfo
+Get-Item -Path C:\Windows\system32\opengl32.dll | Select-Object -ExpandProperty VersionInfo

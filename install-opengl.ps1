@@ -18,10 +18,10 @@ function DownloadMesaOpenGL ($architecture) {
     # $url = $MESA_GL_URL + "opengl32_mingw_" + $architecture + ".dll"
     $url = $MESA_GL_URL
 
-    # if (Test-Path $filepath) {
-    #    Write-Host "OpenGL already installed"
-    #    return
-    #}
+    if (Test-Path $filepath) {
+        Write-Host "OpenGL already installed"
+        rm $filepath
+    }
     If(!(test-path "./temp"))
     {
           New-Item -ItemType Directory -Force -Path "./temp"
