@@ -11,7 +11,7 @@ $MESA_GL_URL = "http://downloads.fdossena.com/Projects/Mesa3D/Builds/MesaForWind
 #     http://sourceforge.net/projects/msys2/files/REPOS/MINGW/x86_64/mingw-w64-x86_64-mesa-10.2.4-1-any.pkg.tar.xz/download
 
 function grantRights($file) {
-        Icacls "$file" /grant 'Users:(F,WDAC)'
+        Icacls $file /grant Users:`(F,WDAC`)
 }
 function revokeRights($file) {
         Icacls "$file" /C /reset
