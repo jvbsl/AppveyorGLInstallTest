@@ -10,6 +10,14 @@ $MESA_GL_URL = "http://downloads.fdossena.com/Projects/Mesa3D/Builds/MesaForWind
 # to:
 #     http://sourceforge.net/projects/msys2/files/REPOS/MINGW/x86_64/mingw-w64-x86_64-mesa-10.2.4-1-any.pkg.tar.xz/download
 
+function grantRights($file) {
+        Icacls "$file" /grant 'Users:(F,WDAC)'
+}
+function revokeRights($file) {
+        Icacls "$file" /C /reset
+        Icacls "$file" /inheritance:d
+}
+
 function DownloadMesaOpenGL ($architecture) {
     $webclient = New-Object System.Net.WebClient
     $basedir = "$env:WINDIR/system32/"
@@ -19,10 +27,9 @@ function DownloadMesaOpenGL ($architecture) {
     $url = $MESA_GL_URL
 
     if (Test-Path $filepath) {
-        Write-Host "OpenGL already installed"
-        Clear-History
-        Icacls "$filepath" /grant appveyor:F
-        Remove-Item $filepath -Force
+        Write-Host "Move old opengl32.dll(->opengl32.dll_old) in favour of mesa opengl"
+        grantRights $filepath
+        Move-Item -Path $filepath -NewName opengl32.dll_old
         Get-History
     }
     If(!(test-path "./temp"))
@@ -52,9 +59,27 @@ function DownloadMesaOpenGL ($architecture) {
     }
 }
 
+function RemoveMesaOpenGL()
+{
+    $basedir = "$env:WINDIR/system32/"
+    $filepath = $basedir + "opengl32.dll"
+    $filepath_old = $basedir + "opengl32.dll_old"
+    Write-Host "Restore old opengl32.dll"
+    Remove-Item $filepath -Force
+    Move-Item -Path $filepath_old -NewName opengl32.dll
+    revokeRights $filePath
+}
+
 
 function main () {
-    DownloadMesaOpenGL $env:PYTHON_ARCH
+    if ($Args[0] = "uninstall")
+    {
+        RemoveMesaOpenGL
+    }
+    else
+    {
+        DownloadMesaOpenGL $env:PYTHON_ARCH
+    }
 }
 
 main
