@@ -29,7 +29,7 @@ function DownloadMesaOpenGL ($architecture) {
     if (Test-Path $filepath) {
         Write-Host "Move old opengl32.dll(->opengl32.dll_old) in favour of mesa opengl"
         grantRights $filepath
-        Move-Item -Path $filepath -NewName opengl32.dll_old
+        Rename-Item -Path $filepath -NewName opengl32.dll_old
         Get-History
     }
     If(!(test-path "./temp"))
@@ -66,7 +66,7 @@ function RemoveMesaOpenGL()
     $filepath_old = $basedir + "opengl32.dll_old"
     Write-Host "Restore old opengl32.dll"
     Remove-Item $filepath -Force
-    Move-Item -Path $filepath_old -NewName opengl32.dll
+    Rename-Item -Path $filepath_old -NewName opengl32.dll
     revokeRights $filePath
 }
 
