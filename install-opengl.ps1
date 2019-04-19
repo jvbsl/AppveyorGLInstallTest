@@ -71,15 +71,11 @@ function RemoveMesaOpenGL()
 }
 
 
-function main () {
-    if ($Args[0] = "uninstall")
-    {
-        RemoveMesaOpenGL
-    }
-    else
-    {
-        DownloadMesaOpenGL $env:PYTHON_ARCH
-    }
+if (($Args.Count -gt 0) -and ($args[0] = "uninstall"))
+{
+    RemoveMesaOpenGL
 }
-
-main
+else
+{
+    DownloadMesaOpenGL $env:PYTHON_ARCH
+}
