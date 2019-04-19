@@ -11,7 +11,7 @@ $MESA_GL_URL = "http://downloads.fdossena.com/Projects/Mesa3D/Builds/MesaForWind
 #     http://sourceforge.net/projects/msys2/files/REPOS/MINGW/x86_64/mingw-w64-x86_64-mesa-10.2.4-1-any.pkg.tar.xz/download
 
 function grantRights($file) {
-        icacls $file /setowner Users /C
+        takeown /f $file
         icacls $file /grant Users:`(F,WDAC`)
 }
 function revokeRights($file) {
@@ -22,7 +22,7 @@ function revokeRights($file) {
 
 function DownloadMesaOpenGL ($architecture) {
     $webclient = New-Object System.Net.WebClient
-    $basedir = "$env:WINDIR/system32/"
+    $basedir = "$env:WINDIR\system32\"
     $filepath = $basedir + "opengl32.dll"
     # Download and retry up to 3 times in case of network transient errors.
     # $url = $MESA_GL_URL + "opengl32_mingw_" + $architecture + ".dll"
