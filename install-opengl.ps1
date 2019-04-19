@@ -27,8 +27,9 @@ function DownloadMesaOpenGL ($architecture) {
     $url = $MESA_GL_URL
 
     if (Test-Path $filepath) {
-        Write-Host "Move old opengl32.dll(->opengl32.dll_old) in favour of mesa opengl"
+        Write-Host "change old opengl32.dll rights"
         grantRights $filepath
+        Write-Host "Move old opengl32.dll(->opengl32.dll_old) in favour of mesa opengl"
         Rename-Item -Path $filepath -NewName opengl32.dll_old
         Get-History
     }
